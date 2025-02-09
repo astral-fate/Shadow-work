@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meditation Workbook</title>
+  <style>
+    /* CSS Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .workbook-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .workbook-header {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .meditation-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      margin: 5px;
+    }
+
+    .meditation-button:hover {
+      background-color: #0056b3;
+    }
+
+    .meditation-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: none; /* Initially hidden */
+    }
+
+    .step {
+      margin-bottom: 20px;
+    }
+
+    .step h3 {
+      margin-top: 0;
+    }
+
+    .step p {
+      margin: 10px 0 0;
+    }
+
+    .journal-prompts {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .journal-prompts h4 {
+      margin-top: 0;
+    }
+
+    .journal-prompts ul {
+      padding-left: 20px;
+    }
+
+    .journal-prompts li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="workbook-container">
+    <!-- Header with Buttons -->
+    <header class="workbook-header">
+      <button class="meditation-button" onclick="showMeditation('sacred-garden')">Sacred Garden Meditation</button>
+      <button class="meditation-button" onclick="showMeditation('sacred-self')">Meeting Your Sacred Self Meditation</button>
+      <button class="meditation-button" onclick="showMeditation('shadow')">Meeting Your Shadow Meditation</button>
+      <button class="meditation-button" onclick="showMeditation('sacred-shadow-integration')">Sacred Self Embracing Shadow Self</button>
+    </header>
+
+    <!-- Sacred Garden Meditation Content -->
+    <div id="sacred-garden" class="meditation-content">
+      <div class="step">
+        <h3>Preparation</h3>
+        <p>Find a quiet place. Put on comfortable clothes. Light some candles if you wish. Have your journal ready.</p>
+      </div>
+      <div class="step">
+        <h3>Breathing</h3>
+        <p>Close your eyes. Take five slow, deep breaths. Inhale for 5 counts, hold for 5 counts, exhale slowly.</p>
+      </div>
+      <div class="step">
+        <h3>Elevator Descent</h3>
+        <p>Imagine entering an elevator. Press the button to descend seven floors into your consciousness.</p>
+      </div>
+      <div class="step">
+        <h3>Garden Visualization</h3>
+        <p>You're in a beautiful sacred garden. Notice the trees, flowers, and birds. What color is the sky?</p>
+      </div>
+      <div class="step">
+        <h3>Sensory Experience</h3>
+        <p>Feel the earth beneath your feet. Is it grassy or sandy? Notice the temperature and wind.</p>
+      </div>
+      <div class="step">
+        <h3>Sacred Seat</h3>
+        <p>Create a sacred meditation seat where you can find all the answers you seek.</p>
+      </div>
+      <div class="journal-prompts">
+        <h4>Journal Prompts:</h4>
+        <ul>
+          <li>What am I most afraid of?</li>
+          <li>What aspects of my life need transforming?</li>
+          <li>What do I want to accomplish by reading this book?</li>
+          <li>What am I most afraid of that someone else will find out about me?</li>
+          <li>What am I most afraid of in finding out about myself?</li>
+          <li>What’s the biggest lie I’ve ever told myself?</li>
+          <li>What’s the biggest lie I’ve ever told someone else?</li>
+          <li>What could stop me from doing the work necessary to transform my life?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Meeting Your Sacred Self Meditation Content -->
+    <div id="sacred-self" class="meditation-content">
+      <div class="step">
+        <h3>Preparation</h3>
+        <p>Clear your space of distractions. Have your journal, crayons, and pen ready. Consider playing soft music.</p>
+      </div>
+      <div class="step">
+        <h3>Initial Breathing</h3>
+        <p>Close your eyes and take a slow, deep breath. Use your breath to quiet your mind. Take five more slow, deep breaths.</p>
+      </div>
+      <div class="step">
+        <h3>Elevator Visualization</h3>
+        <p>Imagine an elevator within you. Step in and descend seven floors. Step out into your beautiful garden.</p>
+      </div>
+      <div class="step">
+        <h3>Garden Experience</h3>
+        <p>Walk through your garden. Notice the flowers and trees. Look at the lush green leaves and savor the rich smells. Listen to the birds singing.</p>
+      </div>
+      <div class="step">
+        <h3>Sacred Self Connection</h3>
+        <p>Find your meditation seat. Close your eyes. An aspect of yourself - your sacred self - will come into your consciousness.</p>
+      </div>
+      <div class="step">
+        <h3>Sacred Self Interaction</h3>
+        <p>Take your sacred self by the hand. Look it in the eye. Ask if it will guide and protect you this week.</p>
+      </div>
+      <div class="step">
+        <h3>Final Questions</h3>
+        <p>Ask what you need to do to open your heart and let go of emotional toxicity. Embrace your sacred self and thank them.</p>
+      </div>
+      <div class="journal-prompts">
+        <h4>Journal Prompts:</h4>
+        <ul>
+          <li>What did your sacred self look like?</li>
+          <li>What did your sacred self say to you?</li>
+          <li>How did you feel during the meditation?</li>
+          <li>What emotions or insights arose during the experience?</li>
+          <li>What do you need to do to open your heart and let go of emotional toxicity?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Meeting Your Shadow Meditation Content -->
+    <div id="shadow" class="meditation-content">
+      <div class="step">
+        <h3>Preparation</h3>
+        <p>Find a quiet space. Close your eyes and take five very slow, deep breaths. Inhale to the count of five, retain your breath as long as comfortable, then exhale slowly.</p>
+      </div>
+      <div class="step">
+        <h3>Elevator Descent</h3>
+        <p>Imagine yourself going into an elevator and down seven floors. Use your breath to quiet your mind and go deep within your consciousness.</p>
+      </div>
+      <div class="step">
+        <h3>Dark Space Visualization</h3>
+        <p>When you open the elevator door, you see a very dark and dingy place. Imagine the worst possible circumstances. Notice the smells, the filth, the garbage everywhere.</p>
+      </div>
+      <div class="step">
+        <h3>Shadow Encounter</h3>
+        <p>Look down into a corner and see the lowest form of yourself imaginable. Allow an image of you at your worst to appear in your mind. Try to sense and see everything about this aspect.</p>
+      </div>
+      <div class="step">
+        <h3>Shadow Description</h3>
+        <p>Allow a word that describes the person you are seeing to come into your mind. Stay with this image and this word.</p>
+      </div>
+      <div class="journal-prompts">
+        <h4>Journal Prompts:</h4>
+        <ul>
+          <li>Describe the environment you encountered in detail.</li>
+          <li>What specific traits or qualities did you observe in your shadow self?</li>
+          <li>What emotions or physical sensations arose during the meditation?</li>
+          <li>What word came to describe this aspect of yourself?</li>
+          <li>What insights or understanding emerged from this encounter?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Sacred Self Embracing Shadow Self Content -->
+    <div id="sacred-shadow-integration" class="meditation-content">
+      <div class="step">
+        <h3>Initial Preparation</h3>
+        <p>Find your sacred garden. Close your eyes and return to this safe space. Take deep breaths to quiet your mind.</p>
+      </div>
+      <div class="step">
+        <h3>Garden Entry</h3>
+        <p>Take your internal elevator down seven floors and enter your garden. Walk through and admire its beauty.</p>
+      </div>
+      <div class="step">
+        <h3>Sacred Self Connection</h3>
+        <p>Find your meditation seat. When comfortable, bring forth the image of your sacred self. Bask in their light and presence.</p>
+      </div>
+      <div class="step">
+        <h3>Shadow Emergence</h3>
+        <p>Now, call forth the dark, shadowy aspect of yourself. Allow it to emerge fully in your awareness.</p>
+      </div>
+      <div class="step">
+        <h3>Integration Beginning</h3>
+        <p>Ask your sacred self to approach and embrace your shadow self. Watch as they move toward each other.</p>
+      </div>
+      <div class="step">
+        <h3>Loving Embrace</h3>
+        <p>Allow your sacred self to hold your shadow aspect. Send love, kindness, and forgiveness to your dark side.</p>
+      </div>
+      <div class="step">
+        <h3>Integration Message</h3>
+        <p>Tell this dark aspect it is safe and that you will spend time understanding and learning to love it.</p>
+      </div>
+      <div class="journal-prompts">
+        <h4>Journal Prompts:</h4>
+        <ul>
+          <li>How did it feel to witness the embrace between your sacred and shadow selves?</li>
+          <li>What resistance or acceptance did you experience?</li>
+          <li>What insights emerged about integration?</li>
+          <li>What emotions arose during this process?</li>
+          <li>What do you need to continue this integration work?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript Functionality
+    function showMeditation(meditationId) {
+      // Hide all meditation contents
+      const allMeditations = document.querySelectorAll('.meditation-content');
+      allMeditations.forEach(meditation => {
+        meditation.style.display = 'none';
+      });
+
+      // Show the selected meditation content
+      const selectedMeditation = document.getElementById(meditationId);
+      if (selectedMeditation) {
+        selectedMeditation.style.display = 'block';
+      }
+    }
+
+    // Show the first meditation by default
+    showMeditation('sacred-garden');
+  </script>
+</body>
+</html>
