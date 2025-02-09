@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sacred Garden Meditation</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --background: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .card-title {
+            margin: 0;
+            color: var(--primary);
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .step-content {
+            margin-bottom: 30px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button.primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .audio-controls {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Sacred Garden Meditation</h1>
+            </div>
+            <div class="card-content">
+                <div id="step-container"></div>
+                <div class="button-group">
+                    <button id="prev-btn" onclick="handlePrevious()" disabled>Previous</button>
+                    <button id="next-btn" onclick="handleNext()" class="primary">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const meditationSteps = [
+            { title: "Preparation", content: "Find a quiet place. Put on comfortable clothes. Light some candles if you wish. Have your journal ready." },
+            { title: "Breathing", content: "Close your eyes. Take five slow, deep breaths. Inhale for 5 counts, hold for 5 counts, exhale slowly." },
+            { title: "Elevator Descent", content: "Imagine entering an elevator. Press the button to descend seven floors into your consciousness." },
+            { title: "Garden Visualization", content: "You're in a beautiful sacred garden. Notice the trees, flowers, and birds. What color is the sky?" },
+            { title: "Sensory Experience", content: "Feel the earth beneath your feet. Is it grassy or sandy? Notice the temperature and wind." },
+            { title: "Sacred Seat", content: "Create a sacred meditation seat where you can find all the answers you seek." }
+        ];
+
+        const journalPrompts = [
+            "What am I most afraid of?",
+            "What aspects of my life need transforming?",
+            "What do I want to accomplish by reading this book?",
+            "What am I most afraid of that someone else will find out about me?",
+            "What am I most afraid of in finding out about myself?",
+            "What's the biggest lie I've ever told myself?",
+            "What's the biggest lie I've ever told someone else?",
+            "What could stop me from doing the work necessary to transform my life?"
+        ];
+
+        let currentStep = 0;
+        let journalEntries = {};
+
+        function renderStep() {
+            const container = document.getElementById('step-container');
+            const isMeditationStep = currentStep < meditationSteps.length;
+            
+            container.innerHTML = `
+                <div class="step-content">
+                    <h3>${isMeditationStep ? meditationSteps[currentStep].title : 'Journal Prompt'}</h3>
+                    <p>${isMeditationStep ? meditationSteps[currentStep].content : journalPrompts[currentStep - meditationSteps.length]}</p>
+                    ${!isMeditationStep ? `
+                        <textarea id="journal-entry" 
+                                  placeholder="Write your response here..."
+                                  oninput="saveJournalEntry(this.value)"></textarea>
+                    ` : ''}
+                </div>
+            `;
+
+            document.getElementById('prev-btn').disabled = currentStep === 0;
+            document.getElementById('next-btn').disabled = 
+                currentStep === meditationSteps.length + journalPrompts.length - 1;
+
+            // Restore journal entry if exists
+            if (!isMeditationStep) {
+                const prompt = journalPrompts[currentStep - meditationSteps.length];
+                document.getElementById('journal-entry').value = journalEntries[prompt] || '';
+            }
+        }
+
+        function saveJournalEntry(value) {
+            const prompt = journalPrompts[currentStep - meditationSteps.length];
+            journalEntries[prompt] = value;
+            localStorage.setItem('journalEntries', JSON.stringify(journalEntries));
+        }
+
+        function handleNext() {
+            if (currentStep < meditationSteps.length + journalPrompts.length - 1) {
+                currentStep++;
+                renderStep();
+            }
+        }
+
+        function handlePrevious() {
+            if (currentStep > 0) {
+                currentStep--;
+                renderStep();
+            }
+        }
+
+        // Load saved journal entries
+        window.onload = () => {
+            const savedEntries = localStorage.getItem('journalEntries');
+            if (savedEntries) {
+                journalEntries = JSON.parse(savedEntries);
+            }
+            renderStep();
+        }
+    </script>
+</body>
+</html>
