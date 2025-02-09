@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Work Workbook</title>
+    <style>
+        /* Basic Styling */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header, footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav li {
+            margin: 0 1em;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+            background-color: #555;
+        }
+
+        nav a:hover {
+            background-color: #777;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .exercise-section {
+            margin-bottom: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3e8e41;
+        }
+
+        .exercise-section {
+            display: none;
+        }
+
+        .exercise-section.active {
+            display: block;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .word-card {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .selected-word-card {
+            background-color: #e9e9e9;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Shadow Work Journey</h1>
+        <nav>
+            <ul>
+                <li><a href="#i-am-that" data-section="i-am-that">I Am That</a></li>
+                <li><a href="#sub-personalities" data-section="sub-personalities">Sub-personalities</a></li>
+                <li><a href="#core-beliefs" data-section="core-beliefs">Core Beliefs</a></li>
+                <li><a href="#forgiveness" data-section="forgiveness">Forgiveness</a></li>
+                <li><a href="#judgment-tracker" data-section="judgment-tracker">Judgment Tracker</a></li>
+                <li><a href="#word-association" data-section="word-association">Word Association</a></li>
+                <li><a href="#sacred-garden" data-section="sacred-garden">Sacred Garden</a></li>
+                <li><a href="#shadow-meditation" data-section="shadow-meditation">Shadow Meditation</a></li>
+                <li><a href="#sacred-self" data-section="sacred-self">Sacred Self Meditation</a></li>
+                <li><a href="#sacred-shadow" data-section="sacred-shadow">Sacred Shadow Integration</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="i-am-that" class="exercise-section">
+            <h2>I Am That Exercise</h2>
+            <div class="input-group">
+                <label for="trait-input">Add a Trait:</label>
+                <input type="text" id="trait-input" placeholder="Enter a trait">
+                <button id="add-trait-button">Add Trait</button>
+            </div>
+            <ul id="trait-list"></ul>
+        </section>
+
+        <section id="sub-personalities" class="exercise-section">
+            <h2>Sub-personalities Exercise</h2>
+            <label for="bus-journal">Bus Journal:</label>
+            <textarea id="bus-journal" rows="4" placeholder="Describe your bus journey"></textarea>
+            <div id="sub-personality-container">
+                <button id="add-sub-personality">Add Sub-personality</button>
+            </div>
+        </section>
+
+        <section id="core-beliefs" class="exercise-section">
+            <h2>Core Beliefs Exercise</h2>
+            <div class="input-group">
+                <label for="belief-input">Add a Core Belief:</label>
+                <input type="text" id="belief-input" placeholder="Enter a core belief">
+                <button id="add-belief-button">Add Belief</button>
+            </div>
+            <ul id="belief-list"></ul>
+        </section>
+
+        <section id="forgiveness" class="exercise-section">
+            <h2>Forgiveness Exercise</h2>
+            <div class="input-group">
+                <label for="person-input">Add a Person to Forgive:</label>
+                <input type="text" id="person-input" placeholder="Enter a person's name">
+                <button id="add-person-button">Add Person</button>
+            </div>
+            <ul id="forgiveness-list"></ul>
+            <label for="self-forgiveness">Self-Forgiveness Letter:</label>
+            <textarea id="self-forgiveness" rows="4" placeholder="Write a letter of self-forgiveness"></textarea>
+        </section>
+
+        <section id="judgment-tracker" class="exercise-section">
+            <h2>Judgment Tracker</h2>
+            <label for="judgment-person">Person:</label>
+            <input type="text" id="judgment-person" placeholder="Person or relationship">
+            <label for="judgment-quality">Quality:</label>
+            <input type="text" id="judgment-quality" placeholder="Quality that upsets you">
+            <label for="judgment-emotion">Emotion:</label>
+            <input type="text" id="judgment-emotion" placeholder="Emotions triggered">
+            <button id="add-judgment-button">Add Judgment</button>
+            <ul id="judgment-list"></ul>
+        </section>
+
+        <section id="word-association" class="exercise-section">
+            <h2>Word Association</h2>
+            <input type="text" id="word-search" placeholder="Search words">
+            <div class="grid" id="word-list"></div>
+            <h3>Selected Words</h3>
+            <div id="selected-words"></div>
+        </section>
+
+        <section id="sacred-garden" class="exercise-section">
+            <h2>Sacred Garden Meditation</h2>
+            <p>Find a quiet place. Close your eyes and imagine your sacred garden...</p>
+            <button id="start-sacred-garden">Start Meditation</button>
+            <label for="garden-journal">Journal Entry:</label>
+            <textarea id="garden-journal" rows="4" placeholder="Describe your experience"></textarea>
+        </section>
+
+        <section id="shadow-meditation" class="exercise-section">
+            <h2>Shadow Meditation</h2>
+            <p>Find a quiet space. Close your eyes and take slow, deep breaths...</p>
+            <button id="start-shadow-meditation">Start Meditation</button>
+            <label for="shadow-journal">Journal Entry:</label>
+            <textarea id="shadow-journal" rows="4" placeholder="Describe your experience"></textarea>
+        </section>
+
+        <section id="sacred-self" class="exercise-section">
+            <h2>Sacred Self Meditation</h2>
+            <p>Find a quiet space. Close your eyes and imagine your sacred self...</p>
+            <button id="start-sacred-self">Start Meditation</button>
+            <label for="sacred-self-journal">Journal Entry:</label>
+            <textarea id="sacred-self-journal" rows="4" placeholder="Describe your experience"></textarea>
+        </section>
+
+        <section id="sacred-shadow" class="exercise-section">
+            <h2>Sacred Shadow Integration</h2>
+            <p>Find a quiet space. Close your eyes and integrate your sacred self with your shadow self...</p>
+            <button id="start-sacred-shadow">Start Meditation</button>
+            <label for="sacred-shadow-journal">Journal Entry:</label>
+            <textarea id="sacred-shadow-journal" rows="4" placeholder="Describe your experience"></textarea>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Shadow Work Workbook</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation
+            const navLinks = document.querySelectorAll('nav a');
+            const exerciseSections = document.querySelectorAll('.exercise-section');
+
+            function hideAllSections() {
+                exerciseSections.forEach(section => section.classList.remove('active'));
+            }
+
+            function showSection(sectionId) {
+                const section = document.getElementById(sectionId);
+                if (section) section.classList.add('active');
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const sectionId = this.getAttribute('data-section');
+                    hideAllSections();
+                    showSection(sectionId);
+                });
+            });
+
+            if (exerciseSections.length > 0) {
+                showSection(exerciseSections[0].id);
+            }
+
+            // I Am That Exercise
+            const traitInput = document.getElementById('trait-input');
+            const addTraitButton = document.getElementById('add-trait-button');
+            const traitList = document.getElementById('trait-list');
+            let traits = [];
+
+            addTraitButton.addEventListener('click', addTrait);
+
+            function addTrait() {
+                const traitValue = traitInput.value.trim();
+                if (traitValue) {
+                    traits.push(traitValue);
+                    renderTraits();
+                    traitInput.value = '';
+                }
+            }
+
+            function renderTraits() {
+                traitList.innerHTML = '';
+                traits.forEach(trait => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = trait;
+                    traitList.appendChild(listItem);
+                });
+            }
+
+            // Sub-personalities Exercise
+            const subPersonalityContainer = document.getElementById('sub-personality-container');
+            const addSubPersonalityButton = document.getElementById('add-sub-personality');
+            const busJournal = document.getElementById('bus-journal');
+            let subPersonalities = [];
+
+            addSubPersonalityButton.addEventListener('click', addSubPersonality);
+
+            function addSubPersonality() {
+                const subPersonalityDiv = document.createElement('div');
+                subPersonalityDiv.innerHTML = `
+                    <label>Name:</label>
+                    <input type="text" class="sub-name">
+                    <label>Description:</label>
+                    <textarea class="sub-description" rows="2"></textarea>
+                    <button class="remove-sub">Remove</button>
+                `;
+                subPersonalityContainer.appendChild(subPersonalityDiv);
+
+                const removeButton = subPersonalityDiv.querySelector('.remove-sub');
+                removeButton.addEventListener('click', function() {
+                    subPersonalityDiv.remove();
+                });
+            }
+
+            // Core Beliefs Exercise
+            const beliefInput = document.getElementById('belief-input');
+            const addBeliefButton = document.getElementById('add-belief-button');
+            const beliefList = document.getElementById('belief-list');
+            let beliefs = [];
+
+            addBeliefButton.addEventListener('click', addBelief);
+
+            function addBelief() {
+                const beliefValue = beliefInput.value.trim();
+                if (beliefValue) {
+                    beliefs.push(beliefValue);
+                    renderBeliefs();
+                    beliefInput.value = '';
+                }
+            }
+
+            function renderBeliefs() {
+                beliefList.innerHTML = '';
+                beliefs.forEach(belief => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = belief;
+                    beliefList.appendChild(listItem);
+                });
+            }
+
+            // Forgiveness Exercise
+            const personInput = document.getElementById('person-input');
+            const addPersonButton = document.getElementById('add-person-button');
+            const forgivenessList = document.getElementById('forgiveness-list');
+            const selfForgiveness = document.getElementById('self-forgiveness');
+            let forgiveList = [];
+
+            addPersonButton.addEventListener('click', addPerson);
+
+            function addPerson() {
+                const personValue = personInput.value.trim();
+                if (personValue) {
+                    forgiveList.push(personValue);
+                    renderForgivenessList();
+                    personInput.value = '';
+                }
+            }
+
+            function renderForgivenessList() {
+                forgivenessList.innerHTML = '';
+                forgiveList.forEach(person => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = person;
+                    forgivenessList.appendChild(listItem);
+                });
+            }
+
+            // Judgment Tracker
+            const judgmentPerson = document.getElementById('judgment-person');
+            const judgmentQuality = document.getElementById('judgment-quality');
+            const judgmentEmotion = document.getElementById('judgment-emotion');
+            const addJudgmentButton = document.getElementById('add-judgment-button');
+            const judgmentList = document.getElementById('judgment-list');
+            let judgments = [];
+
+            addJudgmentButton.addEventListener('click', addJudgment);
+
+            function addJudgment() {
+                const person = judgmentPerson.value.trim();
+                const quality = judgmentQuality.value.trim();
+                const emotion = judgmentEmotion.value.trim();
+
+                if (person && quality && emotion) {
+                    judgments.push({ person, quality, emotion });
+                    renderJudgments();
+                    judgmentPerson.value = '';
+                    judgmentQuality.value = '';
+                    judgmentEmotion.value = '';
+                }
+            }
+
+            function renderJudgments() {
+                judgmentList.innerHTML = '';
+                judgments.forEach(judgment => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `Person: ${judgment.person}, Quality: ${judgment.quality}, Emotion: ${judgment.emotion}`;
+                    judgmentList.appendChild(listItem);
+                });
+            }
+
+            // Word Association
+            const wordSearch = document.getElementById('word-search');
+            const wordList = document.getElementById('word-list');
+            const selectedWordsDiv = document.getElementById('selected-words');
+            const words = [
+                "Greedy", "Liar", "Phony", "Cheap", "Hateful", "Jealous", "Vindictive",
+                "Controlling", "Nasty", "Possessive", "Bitchy", "Wimp", "Evil", "Geek",
+                "Prudish", "Womanizer", "Angry", "Secretive", "Codependent", "Alcoholic",
+                "Predator", "Drug addict", "Gambler", "Sick", "Fat", "Disgusting", "Stupid",
+                "Idiot", "Fearful", "Unconscious", "Masochistic", "Bulimic", "Anorexic",
+                "Unimportant", "Shyster", "Compulsive", "Frigid", "Rigid", "Abuser",
+                "Manipulator", "Victim", "Victimizer", "Egocentric", "Better than", "Foolish",
+            ];
+            let selectedWords = [];
+
+            wordSearch.addEventListener('input', filterWords);
+
+            function filterWords() {
+                const searchTerm = wordSearch.value.toLowerCase();
+                const filteredWords = words.filter(word => word.toLowerCase().includes(searchTerm));
+                renderWords(filteredWords);
+            }
+
+            function renderWords(wordsToRender) {
+                wordList.innerHTML = '';
+                wordsToRender.forEach(word => {
+                    const wordCard = document.createElement('div');
+                    wordCard.classList.add('word-card');
+                    wordCard.textContent = word;
+                    wordCard.addEventListener('click', () => selectWord(word));
+                    wordList.appendChild(wordCard);
+                });
+            }
+
+            function selectWord(word) {
+                if (!selectedWords.includes(word)) {
+                    selectedWords.push(word);
+                    renderSelectedWords();
+                }
+            }
+
+            function renderSelectedWords() {
+                selectedWordsDiv.innerHTML = '';
+                selectedWords.forEach(word => {
+                    const wordCard = document.createElement('div');
+                    wordCard.classList.add('selected-word-card');
+                    wordCard.textContent = word;
+                    selectedWordsDiv.appendChild(wordCard);
+                });
+            }
+
+            filterWords(); // Initial render
+
+            // Sacred Garden, Shadow, Sacred Self, Sacred Shadow Meditations
+            const sacredGardenButton = document.getElementById('start-sacred-garden');
+            const shadowMeditationButton = document.getElementById('start-shadow-meditation');
+            const sacredSelfButton = document.getElementById('start-sacred-self');
+            const sacredShadowButton = document.getElementById('start-sacred-shadow');
+
+            sacredGardenButton.addEventListener('click', () => alert('Start Sacred Garden Meditation'));
+            shadowMeditationButton.addEventListener('click', () => alert('Start Shadow Meditation'));
+            sacredSelfButton.addEventListener('click', () => alert('Start Sacred Self Meditation'));
+            sacredShadowButton.addEventListener('click', () => alert('Start Sacred Shadow Integration'));
+        });
+    </script>
+</body>
+</html>
