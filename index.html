@@ -131,6 +131,84 @@
             border: 1px solid #ccc;
             cursor: crosshair;
         }
+
+        .meditation-step {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .meditation-step h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .meditation-journal {
+            margin-top: 20px;
+        }
+
+        /* For Judgment Tracker and Advice */
+        #judgment-list li,
+        #advice-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .traits-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .trait-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .sub-personality-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sub-personality-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .core-beliefs-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .core-belief-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .forgiveness-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .forgiveness-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 <body>
@@ -139,10 +217,7 @@
         <h1>Shadow Work Journey</h1>
         <nav>
             <ul>
-                <li><a href="#i-am-that" data-section="i-am-that">I Am That</a></li>
-                <li><a href="#sub-personalities" data-section="sub-personalities">Sub-personalities</a></li>
-                <li><a href="#core-beliefs" data-section="core-beliefs">Core Beliefs</a></li>
-                <li><a href="#forgiveness" data-section="forgiveness">Forgiveness</a></li>
+                <li><a href="#shadow-work-exercises" data-section="shadow-work-exercises">Shadow Work Exercises</a></li>
                 <li><a href="#judgment-tracker" data-section="judgment-tracker">Judgment Tracker</a></li>
                 <li><a href="#word-association" data-section="word-association">Word Association</a></li>
                 <li><a href="#sacred-garden" data-section="sacred-garden">Sacred Garden</a></li>
@@ -154,59 +229,109 @@
     </header>
 
     <main>
-        <section id="i-am-that" class="exercise-section">
-            <h2>I Am That Exercise</h2>
-            <div class="input-group">
-                <label for="trait-input">Add a Trait:</label>
-                <input type="text" id="trait-input" placeholder="Enter a trait">
-                <button id="add-trait-button">Add Trait</button>
-            </div>
-            <ul id="trait-list"></ul>
-        </section>
+        <section id="shadow-work-exercises" class="exercise-section">
+            <h2>Shadow Work Exercises</h2>
 
-        <section id="sub-personalities" class="exercise-section">
-            <h2>Sub-personalities Exercise</h2>
-            <label for="bus-journal">Bus Journal:</label>
-            <textarea id="bus-journal" rows="4" placeholder="Describe your bus journey"></textarea>
-            <div id="sub-personality-container">
+            <!-- Chapter 6: I Am That -->
+            <section id="i-am-that">
+                <h3>Chapter 6: I Am That Exercise</h3>
+                <div class="input-group">
+                    <label for="trait-input">Add Your Traits</label>
+                    <input type="text" id="trait-input" placeholder="Enter a trait">
+                    <button id="add-trait-button">Add Trait</button>
+                </div>
+                <div class="traits-container" id="traits-container">
+                    <!-- Traits will be added here dynamically -->
+                </div>
+            </section>
+
+            <!-- Chapter 7: Sub-personalities -->
+            <section id="sub-personalities">
+                <h3>Chapter 7: Sub-personality Bus Exercise</h3>
+                <label for="bus-journal">Journal Entry</label>
+                <textarea id="bus-journal" rows="4" placeholder="Write about your entire experience..."></textarea>
                 <button id="add-sub-personality">Add Sub-personality</button>
-            </div>
-        </section>
+                <div class="sub-personality-container" id="sub-personality-container">
+                    <!-- Sub-personalities will be added here dynamically -->
+                </div>
+            </section>
 
-        <section id="core-beliefs" class="exercise-section">
-            <h2>Core Beliefs Exercise</h2>
-            <div class="input-group">
-                <label for="belief-input">Add a Core Belief:</label>
-                <input type="text" id="belief-input" placeholder="Enter a core belief">
-                <button id="add-belief-button">Add Belief</button>
-            </div>
-            <ul id="belief-list"></ul>
-        </section>
+            <!-- Chapter 8: Core Beliefs -->
+            <section id="core-beliefs">
+                <h3>Chapter 8: Core Beliefs Exercise</h3>
+                <div class="input-group">
+                    <label for="belief-input">Add Core Beliefs</label>
+                    <input type="text" id="belief-input" placeholder="Enter a core belief">
+                    <button id="add-belief-button">Add Belief</button>
+                </div>
+                <div class="core-beliefs-container" id="core-beliefs-container">
+                    <!-- Core beliefs will be added here dynamically -->
+                </div>
+            </section>
 
-        <section id="forgiveness" class="exercise-section">
-            <h2>Forgiveness Exercise</h2>
-            <div class="input-group">
-                <label for="person-input">Add a Person to Forgive:</label>
-                <input type="text" id="person-input" placeholder="Enter a person's name">
-                <button id="add-person-button">Add Person</button>
-            </div>
-            <ul id="forgiveness-list"></ul>
-            <label for="self-forgiveness">Self-Forgiveness Letter:</label>
-            <textarea id="self-forgiveness" rows="4" placeholder="Write a letter of self-forgiveness"></textarea>
+            <!-- Chapter 9: Forgiveness -->
+            <section id="forgiveness">
+                <h3>Chapter 9: Forgiveness Exercise</h3>
+                <div class="input-group">
+                    <label for="person-input">People to Forgive</label>
+                    <input type="text" id="person-input" placeholder="Enter name">
+                    <button id="add-person-button">Add Person</button>
+                </div>
+                <div class="forgiveness-container" id="forgiveness-container">
+                    <!-- People to forgive will be added here dynamically -->
+                </div>
+                <label for="self-forgiveness">Self-Forgiveness Letter</label>
+                <textarea id="self-forgiveness" rows="4" placeholder="Write a letter of forgiveness to yourself..."></textarea>
+
+                <label for="admirable-quality-input">Admirable Qualities</label>
+                <input type="text" id="admirable-quality-input" placeholder="Add an admirable quality">
+                <button id="add-admirable-quality-button">Add Quality</button>
+                <ul id="admirable-qualities-list">
+                    <!-- Admirable qualities will be displayed here -->
+                </ul>
+            </section>
         </section>
 
         <section id="judgment-tracker" class="exercise-section">
             <h2>Judgment Tracker</h2>
+
             <label for="judgment-person">Person:</label>
             <input type="text" id="judgment-person" placeholder="Person or relationship">
+
             <label for="judgment-quality">Quality:</label>
             <input type="text" id="judgment-quality" placeholder="Quality that upsets you">
+
             <label for="judgment-emotion">Emotion:</label>
             <input type="text" id="judgment-emotion" placeholder="Emotions triggered">
+
             <label for="judgment-date">Date:</label>
             <input type="date" id="judgment-date">
+
             <button id="add-judgment-button">Add Judgment</button>
-            <ul id="judgment-list"></ul>
+
+            <ul id="judgment-list">
+                <!-- Judgments will be displayed here -->
+            </ul>
+
+            <h3>Advice Tracker</h3>
+
+            <label for="advice-recipient">Recipient:</label>
+            <input type="text" id="advice-recipient" placeholder="Who received the advice?">
+
+            <label for="advice-given">Advice Given:</label>
+            <textarea id="advice-given" rows="4" placeholder="What advice did you give?"></textarea>
+
+            <label for="self-reflection">Self-Reflection:</label>
+            <textarea id="self-reflection" rows="4" placeholder="How might this advice apply to you?"></textarea>
+
+            <label for="advice-date">Date:</label>
+            <input type="date" id="advice-date">
+
+            <button id="add-advice-button">Add Advice</button>
+
+            <ul id="advice-list">
+                <!-- Advice will be displayed here -->
+            </ul>
         </section>
 
         <section id="word-association" class="exercise-section">
@@ -227,15 +352,40 @@
 
         <section id="shadow-meditation" class="exercise-section">
             <h2>Shadow Meditation</h2>
-            <p>Find a quiet space. Close your eyes and take slow, deep breaths...</p>
+            <div id="shadow-meditation-steps">
+                <div class="meditation-step">
+                    <h3>Preparation</h3>
+                    <p>Find a quiet space. Close your eyes and take five very slow, deep breaths. Inhale to the count of five, retain your breath as long as comfortable, then exhale slowly.</p>
+                </div>
+                <div class="meditation-step">
+                    <h3>Elevator Descent</h3>
+                    <p>Imagine yourself going into an elevator and down seven floors. Use your breath to quiet your mind and go deep within your consciousness.</p>
+                </div>
+                <div class="meditation-step">
+                    <h3>Dark Space Visualization</h3>
+                    <p>When you open the elevator door, you see a very dark and dingy place. Imagine the worst possible circumstances. Notice the smells, the filth, the garbage everywhere.</p>
+                </div>
+                <div class="meditation-step">
+                    <h3>Shadow Encounter</h3>
+                    <p>Look down into a corner and see the lowest form of yourself imaginable. Allow an image of you at your worst to appear in your mind. Try to sense and see everything about this aspect.</p>
+                </div>
+                <div class="meditation-step">
+                    <h3>Shadow Description</h3>
+                    <p>Allow a word that describes the person you are seeing to come into your mind. Stay with this image and this word.</p>
+                </div>
+            </div>
+
+            <div class="meditation-journal">
+                <label for="shadow-journal">Journal Entry:</label>
+                <textarea id="shadow-journal" rows="4" placeholder="Write about your experience"></textarea>
+            </div>
+
             <button id="start-shadow-meditation">Start Meditation</button>
-            <label for="shadow-journal">Journal Entry:</label>
-            <textarea id="shadow-journal" rows="4" placeholder="Describe your experience"></textarea>
         </section>
 
         <section id="sacred-self" class="exercise-section">
             <h2>Sacred Self Meditation</h2>
-            <p>Find a quiet space. Close your eyes and imagine your sacred self...</p>
+            <p>Find a quiet place. Close your eyes and imagine your sacred self...</p>
             <button id="start-sacred-self">Start Meditation</button>
             <label for="sacred-self-journal">Journal Entry:</label>
             <textarea id="sacred-self-journal" rows="4" placeholder="Describe your experience"></textarea>
@@ -286,10 +436,10 @@
                 showSection(exerciseSections[0].id);
             }
 
-            // I Am That Exercise
+            // Shadow Work Exercises
             const traitInput = document.getElementById('trait-input');
             const addTraitButton = document.getElementById('add-trait-button');
-            const traitList = document.getElementById('trait-list');
+            const traitsContainer = document.getElementById('traits-container');
             let traits = [];
 
             addTraitButton.addEventListener('click', addTrait);
@@ -304,15 +454,21 @@
             }
 
             function renderTraits() {
-                traitList.innerHTML = '';
-                traits.forEach(trait => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = trait;
-                    traitList.appendChild(listItem);
+                traitsContainer.innerHTML = '';
+                traits.forEach((trait, index) => {
+                    const traitCard = document.createElement('div');
+                    traitCard.classList.add('trait-card');
+                    traitCard.innerHTML = `
+                        <p>Trait: ${trait}</p>
+                        <label for="hate-letter-${index}">Hate Letter</label>
+                        <textarea id="hate-letter-${index}" rows="2" placeholder="Write your hate letter here..."></textarea>
+                        <label for="examples-${index}">Examples of This Trait</label>
+                        <textarea id="examples-${index}" rows="2" placeholder="Describe times you've demonstrated this trait..."></textarea>
+                    `;
+                    traitsContainer.appendChild(traitCard);
                 });
             }
 
-            // Sub-personalities Exercise
             const subPersonalityContainer = document.getElementById('sub-personality-container');
             const addSubPersonalityButton = document.getElementById('add-sub-personality');
             const busJournal = document.getElementById('bus-journal');
@@ -321,26 +477,22 @@
             addSubPersonalityButton.addEventListener('click', addSubPersonality);
 
             function addSubPersonality() {
-                const subPersonalityDiv = document.createElement('div');
-                subPersonalityDiv.innerHTML = `
-                    <label>Name:</label>
+                const subPersonalityCard = document.createElement('div');
+                subPersonalityCard.classList.add('sub-personality-card');
+                subPersonalityCard.innerHTML = `
+                    <label>Sub-personality Name</label>
                     <input type="text" class="sub-name">
-                    <label>Description:</label>
+                    <label>Description, appearance, mood...</label>
                     <textarea class="sub-description" rows="2"></textarea>
-                    <button class="remove-sub">Remove</button>
+                    <label>Their message to you...</label>
+                    <textarea class="sub-message" rows="2"></textarea>
                 `;
-                subPersonalityContainer.appendChild(subPersonalityDiv);
-
-                const removeButton = subPersonalityDiv.querySelector('.remove-sub');
-                removeButton.addEventListener('click', function() {
-                    subPersonalityDiv.remove();
-                });
+                subPersonalityContainer.appendChild(subPersonalityCard);
             }
 
-            // Core Beliefs Exercise
             const beliefInput = document.getElementById('belief-input');
             const addBeliefButton = document.getElementById('add-belief-button');
-            const beliefList = document.getElementById('belief-list');
+            const coreBeliefsContainer = document.getElementById('core-beliefs-container');
             let beliefs = [];
 
             addBeliefButton.addEventListener('click', addBelief);
@@ -355,22 +507,35 @@
             }
 
             function renderBeliefs() {
-                beliefList.innerHTML = '';
-                beliefs.forEach(belief => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = belief;
-                    beliefList.appendChild(listItem);
+                coreBeliefsContainer.innerHTML = '';
+                beliefs.forEach((belief, index) => {
+                    const beliefCard = document.createElement('div');
+                    beliefCard.classList.add('core-belief-card');
+                    beliefCard.innerHTML = `
+                        <p>Core Belief: ${belief}</p>
+                        <label for="origin-${index}">Origin Analysis</label>
+                        <textarea id="origin-${index}" rows="2" placeholder="Is this your own idea or adopted?"></textarea>
+                        <label for="empowerment-${index}">Empowerment Analysis</label>
+                        <textarea id="empowerment-${index}" rows="2" placeholder="Does this belief empower you?"></textarea>
+                        <label for="new-belief-${index}">New Empowering Belief</label>
+                        <textarea id="new-belief-${index}" rows="2" placeholder="Write a new empowering belief..."></textarea>
+                    `;
+                    coreBeliefsContainer.appendChild(beliefCard);
                 });
             }
 
-            // Forgiveness Exercise
             const personInput = document.getElementById('person-input');
             const addPersonButton = document.getElementById('add-person-button');
-            const forgivenessList = document.getElementById('forgiveness-list');
+            const forgivenessContainer = document.getElementById('forgiveness-container');
             const selfForgiveness = document.getElementById('self-forgiveness');
+            const admirableQualityInput = document.getElementById('admirable-quality-input');
+            const addAdmirableQualityButton = document.getElementById('add-admirable-quality-button');
+            const admirableQualitiesList = document.getElementById('admirable-qualities-list');
             let forgiveList = [];
+            let admirableQualities = [];
 
             addPersonButton.addEventListener('click', addPerson);
+            addAdmirableQualityButton.addEventListener('click', addAdmirableQuality);
 
             function addPerson() {
                 const personValue = personInput.value.trim();
@@ -382,24 +547,57 @@
             }
 
             function renderForgivenessList() {
-                forgivenessList.innerHTML = '';
-                forgiveList.forEach(person => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = person;
-                    forgivenessList.appendChild(listItem);
+                forgivenessContainer.innerHTML = '';
+                forgiveList.forEach((person, index) => {
+                    const forgivenessCard = document.createElement('div');
+                    forgivenessCard.classList.add('forgiveness-card');
+                    forgivenessCard.innerHTML = `
+                        <p>Person: ${person}</p>
+                        <label for="forgiveness-letter-${index}">Forgiveness Letter</label>
+                        <textarea id="forgiveness-letter-${index}" rows="2" placeholder="Write your forgiveness letter..."></textarea>
+                    `;
+                    forgivenessContainer.appendChild(forgivenessCard);
                 });
             }
 
-            // Judgment Tracker
+            function addAdmirableQuality() {
+                const qualityValue = admirableQualityInput.value.trim();
+                if (qualityValue) {
+                    admirableQualities.push(qualityValue);
+                    renderAdmirableQualities();
+                    admirableQualityInput.value = '';
+                }
+            }
+
+            function renderAdmirableQualities() {
+                admirableQualitiesList.innerHTML = '';
+                admirableQualities.forEach(quality => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = quality;
+                    admirableQualitiesList.appendChild(listItem);
+                });
+            }
+
+            // Judgment Tracker and Advice
             const judgmentPerson = document.getElementById('judgment-person');
             const judgmentQuality = document.getElementById('judgment-quality');
             const judgmentEmotion = document.getElementById('judgment-emotion');
             const judgmentDate = document.getElementById('judgment-date');
             const addJudgmentButton = document.getElementById('add-judgment-button');
             const judgmentList = document.getElementById('judgment-list');
+
+            const adviceRecipient = document.getElementById('advice-recipient');
+            const adviceGiven = document.getElementById('advice-given');
+            const selfReflection = document.getElementById('self-reflection');
+            const adviceDate = document.getElementById('advice-date');
+            const addAdviceButton = document.getElementById('add-advice-button');
+            const adviceList = document.getElementById('advice-list');
+
             let judgments = [];
+            let adviceItems = [];
 
             addJudgmentButton.addEventListener('click', addJudgment);
+            addAdviceButton.addEventListener('click', addAdvice);
 
             function addJudgment() {
                 const person = judgmentPerson.value.trim();
@@ -423,6 +621,31 @@
                     const listItem = document.createElement('li');
                     listItem.textContent = `Person: ${judgment.person}, Quality: ${judgment.quality}, Emotion: ${judgment.emotion}, Date: ${judgment.date}`;
                     judgmentList.appendChild(listItem);
+                });
+            }
+
+            function addAdvice() {
+                const recipient = adviceRecipient.value.trim();
+                const given = adviceGiven.value.trim();
+                const reflection = selfReflection.value.trim();
+                const date = adviceDate.value;
+
+                if (recipient && given && reflection && date) {
+                    adviceItems.push({ recipient, given, reflection, date });
+                    renderAdvice();
+                    adviceRecipient.value = '';
+                    adviceGiven.value = '';
+                    selfReflection.value = '';
+                    adviceDate.value = '';
+                }
+            }
+
+            function renderAdvice() {
+                adviceList.innerHTML = '';
+                adviceItems.forEach(item => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `Recipient: ${item.recipient}, Advice: ${item.given}, Self-Reflection: ${item.reflection}, Date: ${item.date}`;
+                    adviceList.appendChild(listItem);
                 });
             }
 
@@ -484,7 +707,7 @@
                         </div>
                         <div class="selected-word-response">
                             <label for="first-judgment-${index}">First Judgment:</label>
-                            <input type="text" id="first-judgment-${index}" placeholder="When did you first make this judgment?">
+                            <input type="text" id="first-judgment-${index}" placeholder="When did you first make this judgment?"></input>
                         </div>
                     `;
                     selectedWordsDiv.appendChild(wordCard);
@@ -544,6 +767,39 @@
             sacredShadowCanvas.addEventListener('mouseup', stopDrawing);
             sacredShadowCanvas.addEventListener('mouseout', stopDrawing);
             sacredShadowCanvas.addEventListener('mousemove', (e) => draw(e, sacredShadowCtx));
+
+            // Shadow Meditation
+            const shadowMeditationButtonElement = document.getElementById('start-shadow-meditation');
+            shadowMeditationButtonElement.addEventListener('click', () => {
+                alert('Start Shadow Meditation');
+                // Add your meditation logic here
+            });
+
+            // Navigation
+            const navLinksElements = document.querySelectorAll('nav a');
+            const exerciseSectionsElements = document.querySelectorAll('.exercise-section');
+
+            function hideAllSectionsElements() {
+                exerciseSectionsElements.forEach(section => section.classList.remove('active'));
+            }
+
+            function showSectionElements(sectionId) {
+                const section = document.getElementById(sectionId);
+                if (section) section.classList.add('active');
+            }
+
+            navLinksElements.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const sectionId = this.getAttribute('data-section');
+                    hideAllSectionsElements();
+                    showSectionElements(sectionId);
+                });
+            });
+
+            if (exerciseSectionsElements.length > 0) {
+                showSectionElements(exerciseSectionsElements[0].id);
+            }
         });
     </script>
 </body>
