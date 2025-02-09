@@ -68,7 +68,9 @@
         }
 
         input[type="text"],
-        textarea {
+        textarea,
+        input[type="range"],
+        input[type="date"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -109,6 +111,7 @@
             padding: 10px;
             border-radius: 5px;
             border: 1px solid #ddd;
+            cursor: pointer;
         }
 
         .selected-word-card {
@@ -117,6 +120,16 @@
             border-radius: 5px;
             border: 1px solid #ccc;
             margin-bottom: 10px;
+        }
+
+        .selected-word-response {
+            margin-bottom: 10px;
+        }
+
+        #sacred-self-canvas,
+        #sacred-shadow-canvas {
+            border: 1px solid #ccc;
+            cursor: crosshair;
         }
     </style>
 </head>
@@ -190,6 +203,8 @@
             <input type="text" id="judgment-quality" placeholder="Quality that upsets you">
             <label for="judgment-emotion">Emotion:</label>
             <input type="text" id="judgment-emotion" placeholder="Emotions triggered">
+            <label for="judgment-date">Date:</label>
+            <input type="date" id="judgment-date">
             <button id="add-judgment-button">Add Judgment</button>
             <ul id="judgment-list"></ul>
         </section>
@@ -224,14 +239,18 @@
             <button id="start-sacred-self">Start Meditation</button>
             <label for="sacred-self-journal">Journal Entry:</label>
             <textarea id="sacred-self-journal" rows="4" placeholder="Describe your experience"></textarea>
+            <h3>Draw Your Sacred Self</h3>
+            <canvas id="sacred-self-canvas" width="600" height="400"></canvas>
         </section>
 
         <section id="sacred-shadow" class="exercise-section">
             <h2>Sacred Shadow Integration</h2>
-            <p>Find a quiet space. Close your eyes and integrate your sacred self with your shadow self...</p>
+            <p>Find a quiet place. Close your eyes and integrate your sacred self with your shadow self...</p>
             <button id="start-sacred-shadow">Start Meditation</button>
             <label for="sacred-shadow-journal">Journal Entry:</label>
             <textarea id="sacred-shadow-journal" rows="4" placeholder="Describe your experience"></textarea>
+            <h3>Draw Your Experience</h3>
+            <canvas id="sacred-shadow-canvas" width="600" height="400"></canvas>
         </section>
     </main>
 
@@ -375,6 +394,7 @@
             const judgmentPerson = document.getElementById('judgment-person');
             const judgmentQuality = document.getElementById('judgment-quality');
             const judgmentEmotion = document.getElementById('judgment-emotion');
+            const judgmentDate = document.getElementById('judgment-date');
             const addJudgmentButton = document.getElementById('add-judgment-button');
             const judgmentList = document.getElementById('judgment-list');
             let judgments = [];
@@ -385,13 +405,15 @@
                 const person = judgmentPerson.value.trim();
                 const quality = judgmentQuality.value.trim();
                 const emotion = judgmentEmotion.value.trim();
+                const date = judgmentDate.value;
 
-                if (person && quality && emotion) {
-                    judgments.push({ person, quality, emotion });
+                if (person && quality && emotion && date) {
+                    judgments.push({ person, quality, emotion, date });
                     renderJudgments();
                     judgmentPerson.value = '';
                     judgmentQuality.value = '';
                     judgmentEmotion.value = '';
+                    judgmentDate.value = '';
                 }
             }
 
@@ -399,7 +421,7 @@
                 judgmentList.innerHTML = '';
                 judgments.forEach(judgment => {
                     const listItem = document.createElement('li');
-                    listItem.textContent = `Person: ${judgment.person}, Quality: ${judgment.quality}, Emotion: ${judgment.emotion}`;
+                    listItem.textContent = `Person: ${judgment.person}, Quality: ${judgment.quality}, Emotion: ${judgment.emotion}, Date: ${judgment.date}`;
                     judgmentList.appendChild(listItem);
                 });
             }
@@ -439,18 +461,32 @@
             }
 
             function selectWord(word) {
-                if (!selectedWords.includes(word)) {
-                    selectedWords.push(word);
+                if (!selectedWords.find(w => w.word === word)) {
+                    selectedWords.push({ word: word, response: '', emotionalCharge: 0, firstJudgment: '' });
                     renderSelectedWords();
                 }
             }
 
             function renderSelectedWords() {
                 selectedWordsDiv.innerHTML = '';
-                selectedWords.forEach(word => {
+                selectedWords.forEach((selectedWord, index) => {
                     const wordCard = document.createElement('div');
                     wordCard.classList.add('selected-word-card');
-                    wordCard.textContent = word;
+                    wordCard.innerHTML = `
+                        <p>${selectedWord.word}</p>
+                        <div class="selected-word-response">
+                            <label for="response-${index}">Response:</label>
+                            <textarea id="response-${index}" rows="2" placeholder="Describe your emotional response"></textarea>
+                        </div>
+                        <div class="selected-word-response">
+                            <label for="emotional-charge-${index}">Emotional Charge (0-10):</label>
+                            <input type="range" id="emotional-charge-${index}" min="0" max="10" value="0">
+                        </div>
+                        <div class="selected-word-response">
+                            <label for="first-judgment-${index}">First Judgment:</label>
+                            <input type="text" id="first-judgment-${index}" placeholder="When did you first make this judgment?">
+                        </div>
+                    `;
                     selectedWordsDiv.appendChild(wordCard);
                 });
             }
@@ -467,6 +503,47 @@
             shadowMeditationButton.addEventListener('click', () => alert('Start Shadow Meditation'));
             sacredSelfButton.addEventListener('click', () => alert('Start Sacred Self Meditation'));
             sacredShadowButton.addEventListener('click', () => alert('Start Sacred Shadow Integration'));
+
+            // Sacred Self and Sacred Shadow Canvas
+            const sacredSelfCanvas = document.getElementById('sacred-self-canvas');
+            const sacredShadowCanvas = document.getElementById('sacred-shadow-canvas');
+            const sacredSelfCtx = sacredSelfCanvas.getContext('2d');
+            const sacredShadowCtx = sacredShadowCanvas.getContext('2d');
+            let drawing = false;
+
+            function startDrawing(e, ctx) {
+                drawing = true;
+                draw(e, ctx);
+            }
+
+            function stopDrawing() {
+                drawing = false;
+                ctx.beginPath();
+            }
+
+            function draw(e, ctx) {
+                if (!drawing) return;
+
+                ctx.lineWidth = 2;
+                ctx.lineCap = 'round';
+
+                ctx.lineTo(e.clientX - ctx.canvas.offsetLeft, e.clientY - ctx.canvas.offsetTop);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(e.clientX - ctx.canvas.offsetLeft, e.clientY - ctx.canvas.offsetTop);
+            }
+
+            // Sacred Self Canvas
+            sacredSelfCanvas.addEventListener('mousedown', (e) => startDrawing(e, sacredSelfCtx));
+            sacredSelfCanvas.addEventListener('mouseup', stopDrawing);
+            sacredSelfCanvas.addEventListener('mouseout', stopDrawing);
+            sacredSelfCanvas.addEventListener('mousemove', (e) => draw(e, sacredSelfCtx));
+
+            // Sacred Shadow Canvas
+            sacredShadowCanvas.addEventListener('mousedown', (e) => startDrawing(e, sacredShadowCtx));
+            sacredShadowCanvas.addEventListener('mouseup', stopDrawing);
+            sacredShadowCanvas.addEventListener('mouseout', stopDrawing);
+            sacredShadowCanvas.addEventListener('mousemove', (e) => draw(e, sacredShadowCtx));
         });
     </script>
 </body>
