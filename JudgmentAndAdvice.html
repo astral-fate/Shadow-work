@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shadow Work Journal</title>
+  <style>
+    /* CSS Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .tabs {
+      margin-bottom: 20px;
+    }
+
+    .tabs-list {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .tabs-trigger {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .tabs-trigger.active {
+      background-color: #0056b3;
+    }
+
+    .tabs-content {
+      display: none;
+    }
+
+    .tabs-content.active {
+      display: block;
+    }
+
+    .alert {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      margin-bottom: 20px;
+    }
+
+    .alert-description {
+      margin: 0;
+    }
+
+    .input-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .input-group input,
+    .input-group textarea {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .input-group textarea {
+      height: 100px;
+    }
+
+    .button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    .button.delete {
+      background-color: #dc3545;
+    }
+
+    .button.delete:hover {
+      background-color: #c82333;
+    }
+
+    .entry-card {
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .entry-card p {
+      margin: 5px 0;
+    }
+
+    .entry-card strong {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Shadow Work Journal</div>
+      </div>
+      <div class="card-content">
+        <div class="tabs">
+          <div class="tabs-list">
+            <button class="tabs-trigger active" data-tab="judgments">Judgments</button>
+            <button class="tabs-trigger" data-tab="advice">Advice</button>
+          </div>
+
+          <!-- Judgments Tab -->
+          <div class="tabs-content active" id="judgments">
+            <div class="alert">
+              <p class="alert-description">
+                Track your judgments of others to uncover aspects of your shadow self.
+              </p>
+            </div>
+
+            <div class="input-group">
+              <input type="text" id="judgment-person" placeholder="Person or relationship (e.g., friend, coworker)">
+              <input type="text" id="judgment-quality" placeholder="Quality that upsets you">
+              <input type="text" id="judgment-emotion" placeholder="Emotions triggered">
+              <input type="date" id="judgment-date">
+            </div>
+            <button class="button" id="add-judgment">
+              <span>Add Judgment</span>
+            </button>
+
+            <div id="judgments-list" class="entries-list">
+              <!-- Judgments will be dynamically added here -->
+            </div>
+          </div>
+
+          <!-- Advice Tab -->
+          <div class="tabs-content" id="advice">
+            <div class="alert">
+              <p class="alert-description">
+                Track the advice you give to others - it often reflects what you need to hear yourself.
+              </p>
+            </div>
+
+            <div class="input-group">
+              <input type="text" id="advice-recipient" placeholder="Who received the advice?">
+              <textarea id="advice-text" placeholder="What advice did you give?"></textarea>
+              <textarea id="advice-reflection" placeholder="How might this advice apply to you?"></textarea>
+              <input type="date" id="advice-date">
+            </div>
+            <button class="button" id="add-advice">
+              <span>Add Advice</span>
+            </button>
+
+            <div id="advice-list" class="entries-list">
+              <!-- Advice will be dynamically added here -->
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <button class="button" id="export-journal">
+            <span>Export Journal</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript Functionality
+    const judgments = [];
+    const advice = [];
+
+    // Tab Switching
+    const tabs = document.querySelectorAll('.tabs-trigger');
+    const tabContents = document.querySelectorAll('.tabs-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabId = tab.getAttribute('data-tab');
+
+        // Remove active class from all tabs and contents
+        tabs.forEach(t => t.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+
+        // Add active class to the selected tab and content
+        tab.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+
+    // Add Judgment
+    const addJudgmentButton = document.getElementById('add-judgment');
+    const judgmentsList = document.getElementById('judgments-list');
+
+    addJudgmentButton.addEventListener('click', () => {
+      const person = document.getElementById('judgment-person').value;
+      const quality = document.getElementById('judgment-quality').value;
+      const emotion = document.getElementById('judgment-emotion').value;
+      const date = document.getElementById('judgment-date').value;
+
+      if (person && quality) {
+        const judgment = { id: Date.now(), person, quality, emotion, date };
+        judgments.push(judgment);
+        renderJudgments();
+        clearJudgmentInputs();
+      }
+    });
+
+    function renderJudgments() {
+      judgmentsList.innerHTML = judgments
+        .map(
+          judgment => `
+            <div class="entry-card" data-id="${judgment.id}">
+              <div>
+                <p><strong>Person:</strong> ${judgment.person}</p>
+                <p><strong>Quality:</strong> ${judgment.quality}</p>
+                <p><strong>Emotions:</strong> ${judgment.emotion}</p>
+                <p><strong>Date:</strong> ${judgment.date}</p>
+              </div>
+              <button class="button delete" onclick="removeJudgment(${judgment.id})">
+                <span>Delete</span>
+              </button>
+            </div>
+          `
+        )
+        .join('');
+    }
+
+    function clearJudgmentInputs() {
+      document.getElementById('judgment-person').value = '';
+      document.getElementById('judgment-quality').value = '';
+      document.getElementById('judgment-emotion').value = '';
+      document.getElementById('judgment-date').value = '';
+    }
+
+    function removeJudgment(id) {
+      const index = judgments.findIndex(j => j.id === id);
+      if (index !== -1) {
+        judgments.splice(index, 1);
+        renderJudgments();
+      }
+    }
+
+    // Add Advice
+    const addAdviceButton = document.getElementById('add-advice');
+    const adviceList = document.getElementById('advice-list');
+
+    addAdviceButton.addEventListener('click', () => {
+      const recipient = document.getElementById('advice-recipient').value;
+      const adviceText = document.getElementById('advice-text').value;
+      const reflection = document.getElementById('advice-reflection').value;
+      const date = document.getElementById('advice-date').value;
+
+      if (recipient && adviceText) {
+        const adviceItem = { id: Date.now(), recipient, advice: adviceText, selfReflection: reflection, date };
+        advice.push(adviceItem);
+        renderAdvice();
+        clearAdviceInputs();
+      }
+    });
+
+    function renderAdvice() {
+      adviceList.innerHTML = advice
+        .map(
+          item => `
+            <div class="entry-card" data-id="${item.id}">
+              <div>
+                <p><strong>Recipient:</strong> ${item.recipient}</p>
+                <p><strong>Advice:</strong> ${item.advice}</p>
+                <p><strong>Self-Reflection:</strong> ${item.selfReflection}</p>
+                <p><strong>Date:</strong> ${item.date}</p>
+              </div>
+              <button class="button delete" onclick="removeAdvice(${item.id})">
+                <span>Delete</span>
+              </button>
+            </div>
+          `
+        )
+        .join('');
+    }
+
+    function clearAdviceInputs() {
+      document.getElementById('advice-recipient').value = '';
+      document.getElementById('advice-text').value = '';
+      document.getElementById('advice-reflection').value = '';
+      document.getElementById('advice-date').value = '';
+    }
+
+    function removeAdvice(id) {
+      const index = advice.findIndex(a => a.id === id);
+      if (index !== -1) {
+        advice.splice(index, 1);
+        renderAdvice();
+      }
+    }
+
+    // Export Journal
+    const exportButton = document.getElementById('export-journal');
+    exportButton.addEventListener('click', () => {
+      const data = {
+        judgments,
+        advice,
+        exportDate: new Date().toISOString()
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'shadow-work-journal.json';
+      link.click();
+    });
+  </script>
+</body>
+</html>
