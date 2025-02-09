@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Work Exercises</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --background: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .card-title {
+            margin: 0;
+            color: var(--primary);
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .exercise-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .exercise-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--secondary);
+            border-radius: 20px;
+            cursor: pointer;
+            background: white;
+        }
+
+        .exercise-btn.active {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .word-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .word-item {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .word-item.selected {
+            background: #e3f2fd;
+            border-color: var(--secondary);
+        }
+
+        canvas {
+            border: 1px solid #ddd;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="exercise-nav" id="exercise-nav"></div>
+        
+        <!-- Sacred Self Meditation -->
+        <div class="card exercise" id="sacred-self">
+            <div class="card-header">
+                <h2 class="card-title">Meeting Your Sacred Self</h2>
+            </div>
+            <div class="card-content">
+                <div id="sacred-self-steps"></div>
+                <canvas id="sacred-drawing" width="400" height="300"></canvas>
+                <textarea id="sacred-journal" placeholder="Describe your experience..."></textarea>
+            </div>
+        </div>
+
+        <!-- Shadow Traits Exercise -->
+        <div class="card exercise hidden" id="shadow-traits">
+            <div class="card-header">
+                <h2 class="card-title">Shadow Traits Identification</h2>
+            </div>
+            <div class="card-content">
+                <div class="word-grid" id="trait-grid"></div>
+                <div id="selected-traits"></div>
+            </div>
+        </div>
+
+        <!-- Forgiveness Exercise -->
+        <div class="card exercise hidden" id="forgiveness">
+            <div class="card-header">
+                <h2 class="card-title">Forgiveness Practice</h2>
+            </div>
+            <div class="card-content">
+                <div id="forgiveness-steps"></div>
+                <textarea id="forgiveness-letter" placeholder="Write your forgiveness letter..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Exercise Data
+        const exercises = {
+            'sacred-self': {
+                steps: [
+                    "Enter your sacred garden through the elevator",
+                    "Visualize your sacred self",
+                    "Engage in dialogue with your sacred self",
+                    "Draw your sacred self"
+                ],
+                currentStep: 0
+            },
+            'shadow-traits': {
+                traits: [
+                    'Greedy', 'Liar', 'Jealous', 'Controlling', 'Angry',
+                    'Insecure', 'Judgmental', 'Selfish', 'Fearful', 'Critical'
+                ],
+                selected: []
+            },
+            'forgiveness': {
+                steps: [
+                    "Identify people to forgive",
+                    "Write forgiveness letters",
+                    "Create self-forgiveness statement"
+                ],
+                currentStep: 0
+            }
+        };
+
+        // Initialize Exercises
+        function initExercises() {
+            const nav = document.getElementById('exercise-nav');
+            Object.keys(exercises).forEach(ex => {
+                const btn = document.createElement('button');
+                btn.className = 'exercise-btn';
+                btn.textContent = ex.replace(/-/g, ' ');
+                btn.onclick = () => showExercise(ex);
+                nav.appendChild(btn);
+            });
+            showExercise('sacred-self');
+            initTraitGrid();
+            setupCanvas();
+        }
+
+        function showExercise(exId) {
+            document.querySelectorAll('.exercise').forEach(el => el.classList.add('hidden'));
+            document.getElementById(exId).classList.remove('hidden');
+            document.querySelectorAll('.exercise-btn').forEach(btn => 
+                btn.classList.toggle('active', btn.textContent === exId.replace(/-/g, ' '))
+            );
+        }
+
+        // Sacred Self Drawing
+        function setupCanvas() {
+            const canvas = document.getElementById('sacred-drawing');
+            const ctx = canvas.getContext('2d');
+            let isDrawing = false;
+            let lastX = 0;
+            let lastY = 0;
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+
+            function startDrawing(e) {
+                isDrawing = true;
+                [lastX, lastY] = [e.offsetX, e.offsetY];
+            }
+
+            function draw(e) {
+                if (!isDrawing) return;
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+                [lastX, lastY] = [e.offsetX, e.offsetY];
+            }
+
+            function stopDrawing() {
+                isDrawing = false;
+            }
+        }
+
+        // Shadow Traits Grid
+        function initTraitGrid() {
+            const grid = document.getElementById('trait-grid');
+            exercises['shadow-traits'].traits.forEach(trait => {
+                const div = document.createElement('div');
+                div.className = 'word-item';
+                div.textContent = trait;
+                div.onclick = () => toggleTrait(trait, div);
+                grid.appendChild(div);
+            });
+        }
+
+        function toggleTrait(trait, element) {
+            const index = exercises['shadow-traits'].selected.indexOf(trait);
+            if (index === -1) {
+                exercises['shadow-traits'].selected.push(trait);
+                element.classList.add('selected');
+            } else {
+                exercises['shadow-traits'].selected.splice(index, 1);
+                element.classList.remove('selected');
+            }
+            updateSelectedTraits();
+        }
+
+        function updateSelectedTraits() {
+            const container = document.getElementById('selected-traits');
+            container.innerHTML = `<h3>Selected Traits (${exercises['shadow-traits'].selected.length}):</h3>
+                <p>${exercises['shadow-traits'].selected.join(', ')}</p>`;
+        }
+
+        // Initialize Application
+        window.onload = initExercises;
+    </script>
+</body>
+</html>
