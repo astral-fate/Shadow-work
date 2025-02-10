@@ -126,12 +126,6 @@
             margin-bottom: 10px;
         }
 
-        #sacred-self-canvas,
-        #sacred-shadow-canvas {
-            border: 1px solid #ccc;
-            cursor: crosshair;
-        }
-
         .meditation-step {
             margin-bottom: 20px;
             padding: 15px;
@@ -149,15 +143,6 @@
             margin-top: 20px;
         }
 
-        /* For Judgment Tracker and Advice */
-        #judgment-list li,
-        #advice-list li {
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
         .traits-container {
             display: flex;
             flex-direction: column;
@@ -220,10 +205,7 @@
                 <li><a href="#shadow-work-exercises" data-section="shadow-work-exercises">Shadow Work Exercises</a></li>
                 <li><a href="#judgment-tracker" data-section="judgment-tracker">Judgment Tracker</a></li>
                 <li><a href="#word-association" data-section="word-association">Word Association</a></li>
-                <li><a href="#sacred-garden" data-section="sacred-garden">Sacred Garden</a></li>
-                <li><a href="#shadow-meditation" data-section="shadow-meditation">Shadow Meditation</a></li>
-                <li><a href="#sacred-self" data-section="sacred-self">Sacred Self Meditation</a></li>
-                <li><a href="#sacred-shadow" data-section="sacred-shadow">Sacred Shadow Integration</a></li>
+                <li><a href="#meditations" data-section="meditations">Meditations</a></li>
             </ul>
         </nav>
     </header>
@@ -292,48 +274,77 @@
             </section>
         </section>
 
+        <!-- Judgment Tracker Section -->
         <section id="judgment-tracker" class="exercise-section">
             <h2>Judgment Tracker</h2>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Shadow Work Journal</div>
+                </div>
+                <div class="card-content">
+                    <div class="tabs">
+                        <div class="tabs-list">
+                            <button class="tabs-trigger active" data-tab="judgments">Judgments</button>
+                            <button class="tabs-trigger" data-tab="advice">Advice</button>
+                        </div>
 
-            <label for="judgment-person">Person:</label>
-            <input type="text" id="judgment-person" placeholder="Person or relationship">
+                        <!-- Judgments Tab -->
+                        <div class="tabs-content active" id="judgments">
+                            <div class="alert">
+                                <p class="alert-description">
+                                    Track your judgments of others to uncover aspects of your shadow self.
+                                </p>
+                            </div>
 
-            <label for="judgment-quality">Quality:</label>
-            <input type="text" id="judgment-quality" placeholder="Quality that upsets you">
+                            <div class="input-group">
+                                <input type="text" id="judgment-person" placeholder="Person or relationship (e.g., friend, coworker)">
+                                <input type="text" id="judgment-quality" placeholder="Quality that upsets you">
+                                <input type="text" id="judgment-emotion" placeholder="Emotions triggered">
+                                <input type="date" id="judgment-date">
+                            </div>
+                            <button class="button" id="add-judgment">
+                                <span>Add Judgment</span>
+                            </button>
 
-            <label for="judgment-emotion">Emotion:</label>
-            <input type="text" id="judgment-emotion" placeholder="Emotions triggered">
+                            <div id="judgments-list" class="entries-list">
+                                <!-- Judgments will be dynamically added here -->
+                            </div>
+                        </div>
 
-            <label for="judgment-date">Date:</label>
-            <input type="date" id="judgment-date">
+                        <!-- Advice Tab -->
+                        <div class="tabs-content" id="advice">
+                            <div class="alert">
+                                <p class="alert-description">
+                                    Track the advice you give to others - it often reflects what you need to hear yourself.
+                                </p>
+                            </div>
 
-            <button id="add-judgment-button">Add Judgment</button>
+                            <div class="input-group">
+                                <input type="text" id="advice-recipient" placeholder="Who received the advice?">
+                                <textarea id="advice-text" placeholder="What advice did you give?"></textarea>
+                                <textarea id="advice-reflection" placeholder="How might this advice apply to you?"></textarea>
+                                <input type="date" id="advice-date">
+                            </div>
+                            <button class="button" id="add-advice">
+                                <span>Add Advice</span>
+                            </button>
 
-            <ul id="judgment-list">
-                <!-- Judgments will be displayed here -->
-            </ul>
+                            <div id="advice-list" class="entries-list">
+                                <!-- Advice will be dynamically added here -->
+                            </div>
+                        </div>
+                    </div>
 
-            <h3>Advice Tracker</h3>
-
-            <label for="advice-recipient">Recipient:</label>
-            <input type="text" id="advice-recipient" placeholder="Who received the advice?">
-
-            <label for="advice-given">Advice Given:</label>
-            <textarea id="advice-given" rows="4" placeholder="What advice did you give?"></textarea>
-
-            <label for="self-reflection">Self-Reflection:</label>
-            <textarea id="self-reflection" rows="4" placeholder="How might this advice apply to you?"></textarea>
-
-            <label for="advice-date">Date:</label>
-            <input type="date" id="advice-date">
-
-            <button id="add-advice-button">Add Advice</button>
-
-            <ul id="advice-list">
-                <!-- Advice will be displayed here -->
-            </ul>
+                    <div class="mt-6">
+                        <button class="button" id="export-journal">
+                            <span>Export Journal</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </section>
 
+        <!-- Word Association Section -->
         <section id="word-association" class="exercise-section">
             <h2>Word Association</h2>
             <input type="text" id="word-search" placeholder="Search words">
@@ -342,65 +353,314 @@
             <div id="selected-words"></div>
         </section>
 
-        <section id="sacred-garden" class="exercise-section">
-            <h2>Sacred Garden Meditation</h2>
-            <p>Find a quiet place. Close your eyes and imagine your sacred garden...</p>
-            <button id="start-sacred-garden">Start Meditation</button>
-            <label for="garden-journal">Journal Entry:</label>
-            <textarea id="garden-journal" rows="4" placeholder="Describe your experience"></textarea>
-        </section>
+        <!-- Meditations Section -->
+        <section id="meditations" class="exercise-section">
+            <h2>Meditations</h2>
+            <div class="workbook-container">
+                <header class="workbook-header">
+                    <button class="meditation-button" onclick="showMeditation('sacred-garden')">Sacred Garden Meditation</button>
+                    <button class="meditation-button" onclick="showMeditation('sacred-self')">Meeting Your Sacred Self Meditation</button>
+                    <button class="meditation-button" onclick="showMeditation('shadow')">Meeting Your Shadow Meditation</button>
+                    <button class="meditation-button" onclick="showMeditation('sacred-shadow-integration')">Sacred Self Embracing Shadow Self</button>
+                </header>
 
-        <section id="shadow-meditation" class="exercise-section">
-            <h2>Shadow Meditation</h2>
-            <div id="shadow-meditation-steps">
-                <div class="meditation-step">
-                    <h3>Preparation</h3>
-                    <p>Find a quiet space. Close your eyes and take five very slow, deep breaths. Inhale to the count of five, retain your breath as long as comfortable, then exhale slowly.</p>
+                <!-- Sacred Garden Meditation Content -->
+                <div id="sacred-garden" class="meditation-content">
+                    <div class="step active">
+                        <h3>Preparation</h3>
+                        <p>Find a quiet place. Put on comfortable clothes. Light some candles if you wish. Have your journal ready.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Breathing</h3>
+                        <p>Close your eyes. Take five slow, deep breaths. Inhale for 5 counts, hold for 5 counts, exhale slowly.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Elevator Descent</h3>
+                        <p>Imagine entering an elevator. Press the button to descend seven floors into your consciousness.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Garden Visualization</h3>
+                        <p>You're in a beautiful sacred garden. Notice the trees, flowers, and birds. What color is the sky?</p>
+                    </div>
+                    <div class="step">
+                        <h3>Sensory Experience</h3>
+                        <p>Feel the earth beneath your feet. Is it grassy or sandy? Notice the temperature and wind.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Sacred Seat</h3>
+                        <p>Create a sacred meditation seat where you can find all the answers you seek.</p>
+                    </div>
+                    <!-- Journal Prompts -->
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What am I most afraid of?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What aspects of my life need transforming?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What do I want to accomplish by reading this book?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What am I most afraid of that someone else will find out about me?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What am I most afraid of in finding out about myself?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What’s the biggest lie I’ve ever told myself?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What’s the biggest lie I’ve ever told someone else?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What could stop me from doing the work necessary to transform my life?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="navigation-buttons">
+                        <button onclick="previousStep('sacred-garden')" disabled>Previous</button>
+                        <button onclick="nextStep('sacred-garden')">Next</button>
+                    </div>
                 </div>
-                <div class="meditation-step">
-                    <h3>Elevator Descent</h3>
-                    <p>Imagine yourself going into an elevator and down seven floors. Use your breath to quiet your mind and go deep within your consciousness.</p>
+
+                <!-- Meeting Your Sacred Self Meditation Content -->
+                <div id="sacred-self" class="meditation-content">
+                    <div class="step active">
+                        <h3>Preparation</h3>
+                        <p>Clear your space of distractions. Have your journal, crayons, and pen ready. Consider playing soft music.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Initial Breathing</h3>
+                        <p>Close your eyes and take a slow, deep breath. Use your breath to quiet your mind. Take five more slow, deep breaths.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Elevator Visualization</h3>
+                        <p>Imagine an elevator within you. Step in and descend seven floors. Step out into your beautiful garden.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Garden Experience</h3>
+                        <p>Walk through your garden. Notice the flowers and trees. Look at the lush green leaves and savor the rich smells. Listen to the birds singing.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Sacred Self Connection</h3>
+                        <p>Find your meditation seat. Close your eyes. An aspect of yourself - your sacred self - will come into your consciousness.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Sacred Self Interaction</h3>
+                        <p>Take your sacred self by the hand. Look it in the eye. Ask if it will guide and protect you this week.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Final Questions</h3>
+                        <p>Ask what you need to do to open your heart and let go of emotional toxicity. Embrace your sacred self and thank them.</p>
+                    </div>
+                    <!-- Journal Prompts -->
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What did your sacred self look like?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What did your sacred self say to you?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>How did you feel during the meditation?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What emotions or insights arose during the experience?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What do you need to do to open your heart and let go of emotional toxicity?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="navigation-buttons">
+                        <button onclick="previousStep('sacred-self')" disabled>Previous</button>
+                        <button onclick="nextStep('sacred-self')">Next</button>
+                    </div>
                 </div>
-                <div class="meditation-step">
-                    <h3>Dark Space Visualization</h3>
-                    <p>When you open the elevator door, you see a very dark and dingy place. Imagine the worst possible circumstances. Notice the smells, the filth, the garbage everywhere.</p>
+
+                <!-- Meeting Your Shadow Meditation Content -->
+                <div id="shadow" class="meditation-content">
+                    <div class="step active">
+                        <h3>Preparation</h3>
+                        <p>Find a quiet space. Close your eyes and take five very slow, deep breaths. Inhale to the count of five, retain your breath as long as comfortable, then exhale slowly.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Elevator Descent</h3>
+                        <p>Imagine yourself going into an elevator and down seven floors. Use your breath to quiet your mind and go deep within your consciousness.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Dark Space Visualization</h3>
+                        <p>When you open the elevator door, you see a very dark and dingy place. Imagine the worst possible circumstances. Notice the smells, the filth, the garbage everywhere.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Shadow Encounter</h3>
+                        <p>Look down into a corner and see the lowest form of yourself imaginable. Allow an image of you at your worst to appear in your mind. Try to sense and see everything about this aspect.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Shadow Description</h3>
+                        <p>Allow a word that describes the person you are seeing to come into your mind. Stay with this image and this word.</p>
+                    </div>
+                    <!-- Journal Prompts -->
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>Describe the environment you encountered in detail.</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What specific traits or qualities did you observe in your shadow self?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What emotions or physical sensations arose during the meditation?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What word came to describe this aspect of yourself?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What insights or understanding emerged from this encounter?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="navigation-buttons">
+                        <button onclick="previousStep('shadow')" disabled>Previous</button>
+                        <button onclick="nextStep('shadow')">Next</button>
+                    </div>
                 </div>
-                <div class="meditation-step">
-                    <h3>Shadow Encounter</h3>
-                    <p>Look down into a corner and see the lowest form of yourself imaginable. Allow an image of you at your worst to appear in your mind. Try to sense and see everything about this aspect.</p>
-                </div>
-                <div class="meditation-step">
-                    <h3>Shadow Description</h3>
-                    <p>Allow a word that describes the person you are seeing to come into your mind. Stay with this image and this word.</p>
+
+                <!-- Sacred Self Embracing Shadow Self Content -->
+                <div id="sacred-shadow-integration" class="meditation-content">
+                    <div class="step active">
+                        <h3>Initial Preparation</h3>
+                        <p>Find your sacred garden. Close your eyes and return to this safe space. Take deep breaths to quiet your mind.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Garden Entry</h3>
+                        <p>Take your internal elevator down seven floors and enter your garden. Walk through and admire its beauty.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Sacred Self Connection</h3>
+                        <p>Find your meditation seat. When comfortable, bring forth the image of your sacred self. Bask in their light and presence.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Shadow Emergence</h3>
+                        <p>Now, call forth the dark, shadowy aspect of yourself. Allow it to emerge fully in your awareness.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Integration Beginning</h3>
+                        <p>Ask your sacred self to approach and embrace your shadow self. Watch as they move toward each other.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Loving Embrace</h3>
+                        <p>Allow your sacred self to hold your shadow aspect. Send love, kindness, and forgiveness to your dark side.</p>
+                    </div>
+                    <div class="step">
+                        <h3>Integration Message</h3>
+                        <p>Tell this dark aspect it is safe and that you will spend time understanding and learning to love it.</p>
+                    </div>
+                    <!-- Journal Prompts -->
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>How did it feel to witness the embrace between your sacred and shadow selves?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What resistance or acceptance did you experience?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What insights emerged about integration?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What emotions arose during this process?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <h3>Journal Prompt</h3>
+                        <div class="journal-prompts">
+                            <h4>What do you need to continue this integration work?</h4>
+                            <textarea placeholder="Write your response here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="navigation-buttons">
+                        <button onclick="previousStep('sacred-shadow-integration')" disabled>Previous</button>
+                        <button onclick="nextStep('sacred-shadow-integration')">Next</button>
+                    </div>
                 </div>
             </div>
-
-            <div class="meditation-journal">
-                <label for="shadow-journal">Journal Entry:</label>
-                <textarea id="shadow-journal" rows="4" placeholder="Write about your experience"></textarea>
-            </div>
-
-            <button id="start-shadow-meditation">Start Meditation</button>
-        </section>
-
-        <section id="sacred-self" class="exercise-section">
-            <h2>Sacred Self Meditation</h2>
-            <p>Find a quiet place. Close your eyes and imagine your sacred self...</p>
-            <button id="start-sacred-self">Start Meditation</button>
-            <label for="sacred-self-journal">Journal Entry:</label>
-            <textarea id="sacred-self-journal" rows="4" placeholder="Describe your experience"></textarea>
-            <h3>Draw Your Sacred Self</h3>
-            <canvas id="sacred-self-canvas" width="600" height="400"></canvas>
-        </section>
-
-        <section id="sacred-shadow" class="exercise-section">
-            <h2>Sacred Shadow Integration</h2>
-            <p>Find a quiet place. Close your eyes and integrate your sacred self with your shadow self...</p>
-            <button id="start-sacred-shadow">Start Meditation</button>
-            <label for="sacred-shadow-journal">Journal Entry:</label>
-            <textarea id="sacred-shadow-journal" rows="4" placeholder="Describe your experience"></textarea>
-            <h3>Draw Your Experience</h3>
-            <canvas id="sacred-shadow-canvas" width="600" height="400"></canvas>
         </section>
     </main>
 
@@ -578,77 +838,6 @@
                 });
             }
 
-            // Judgment Tracker and Advice
-            const judgmentPerson = document.getElementById('judgment-person');
-            const judgmentQuality = document.getElementById('judgment-quality');
-            const judgmentEmotion = document.getElementById('judgment-emotion');
-            const judgmentDate = document.getElementById('judgment-date');
-            const addJudgmentButton = document.getElementById('add-judgment-button');
-            const judgmentList = document.getElementById('judgment-list');
-
-            const adviceRecipient = document.getElementById('advice-recipient');
-            const adviceGiven = document.getElementById('advice-given');
-            const selfReflection = document.getElementById('self-reflection');
-            const adviceDate = document.getElementById('advice-date');
-            const addAdviceButton = document.getElementById('add-advice-button');
-            const adviceList = document.getElementById('advice-list');
-
-            let judgments = [];
-            let adviceItems = [];
-
-            addJudgmentButton.addEventListener('click', addJudgment);
-            addAdviceButton.addEventListener('click', addAdvice);
-
-            function addJudgment() {
-                const person = judgmentPerson.value.trim();
-                const quality = judgmentQuality.value.trim();
-                const emotion = judgmentEmotion.value.trim();
-                const date = judgmentDate.value;
-
-                if (person && quality && emotion && date) {
-                    judgments.push({ person, quality, emotion, date });
-                    renderJudgments();
-                    judgmentPerson.value = '';
-                    judgmentQuality.value = '';
-                    judgmentEmotion.value = '';
-                    judgmentDate.value = '';
-                }
-            }
-
-            function renderJudgments() {
-                judgmentList.innerHTML = '';
-                judgments.forEach(judgment => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = `Person: ${judgment.person}, Quality: ${judgment.quality}, Emotion: ${judgment.emotion}, Date: ${judgment.date}`;
-                    judgmentList.appendChild(listItem);
-                });
-            }
-
-            function addAdvice() {
-                const recipient = adviceRecipient.value.trim();
-                const given = adviceGiven.value.trim();
-                const reflection = selfReflection.value.trim();
-                const date = adviceDate.value;
-
-                if (recipient && given && reflection && date) {
-                    adviceItems.push({ recipient, given, reflection, date });
-                    renderAdvice();
-                    adviceRecipient.value = '';
-                    adviceGiven.value = '';
-                    selfReflection.value = '';
-                    adviceDate.value = '';
-                }
-            }
-
-            function renderAdvice() {
-                adviceList.innerHTML = '';
-                adviceItems.forEach(item => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = `Recipient: ${item.recipient}, Advice: ${item.given}, Self-Reflection: ${item.reflection}, Date: ${item.date}`;
-                    adviceList.appendChild(listItem);
-                });
-            }
-
             // Word Association
             const wordSearch = document.getElementById('word-search');
             const wordList = document.getElementById('word-list');
@@ -716,88 +905,60 @@
 
             filterWords(); // Initial render
 
-            // Sacred Garden, Shadow, Sacred Self, Sacred Shadow Meditations
-            const sacredGardenButton = document.getElementById('start-sacred-garden');
-            const shadowMeditationButton = document.getElementById('start-shadow-meditation');
-            const sacredSelfButton = document.getElementById('start-sacred-self');
-            const sacredShadowButton = document.getElementById('start-sacred-shadow');
+            // Meditations Functionality
+            let currentSteps = {};
 
-            function startMeditation(sectionId) {
-                const journal = document.getElementById(`${sectionId}-journal`);
-                alert(`Start ${sectionId} Meditation. Remember to journal after!`);
-                // Add your meditation logic here
-            }
-
-            sacredGardenButton.addEventListener('click', () => startMeditation('sacred-garden'));
-            shadowMeditationButton.addEventListener('click', () => startMeditation('shadow'));
-            sacredSelfButton.addEventListener('click', () => startMeditation('sacred-self'));
-            sacredShadowButton.addEventListener('click', () => startMeditation('sacred-shadow'));
-            // Sacred Self and Sacred Shadow Canvas
-            const sacredSelfCanvas = document.getElementById('sacred-self-canvas');
-            const sacredShadowCanvas = document.getElementById('sacred-shadow-canvas');
-            const sacredSelfCtx = sacredSelfCanvas.getContext('2d');
-            const sacredShadowCtx = sacredShadowCanvas.getContext('2d');
-            let drawing = false;
-
-            function startDrawing(e, ctx) {
-                drawing = true;
-                draw(e, ctx);
-            }
-
-            function stopDrawing() {
-                drawing = false;
-                ctx.beginPath();
-            }
-
-            function draw(e, ctx) {
-                if (!drawing) return;
-
-                ctx.lineWidth = 2;
-                ctx.lineCap = 'round';
-
-                ctx.lineTo(e.clientX - ctx.canvas.offsetLeft, e.clientY - ctx.canvas.offsetTop);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(e.clientX - ctx.canvas.offsetLeft, e.clientY - ctx.canvas.offsetTop);
-            }
-
-            // Sacred Self Canvas
-            sacredSelfCanvas.addEventListener('mousedown', (e) => startDrawing(e, sacredSelfCtx));
-            sacredSelfCanvas.addEventListener('mouseup', stopDrawing);
-            sacredSelfCanvas.addEventListener('mouseout', stopDrawing);
-            sacredSelfCanvas.addEventListener('mousemove', (e) => draw(e, sacredSelfCtx));
-
-            // Sacred Shadow Canvas
-            sacredShadowCanvas.addEventListener('mousedown', (e) => startDrawing(e, sacredShadowCtx));
-            sacredShadowCanvas.addEventListener('mouseup', stopDrawing);
-            sacredShadowCanvas.addEventListener('mouseout', stopDrawing);
-            sacredShadowCanvas.addEventListener('mousemove', (e) => draw(e, sacredShadowCtx));
-
-            // Navigation
-            const navLinksElements = document.querySelectorAll('nav a');
-            const exerciseSectionsElements = document.querySelectorAll('.exercise-section');
-
-            function hideAllSectionsElements() {
-                exerciseSectionsElements.forEach(section => section.classList.remove('active'));
-            }
-
-            function showSectionElements(sectionId) {
-                const section = document.getElementById(sectionId);
-                if (section) section.classList.add('active');
-            }
-
-            navLinksElements.forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const sectionId = this.getAttribute('data-section');
-                    hideAllSectionsElements();
-                    showSectionElements(sectionId);
+            function showMeditation(meditationId) {
+                // Hide all meditation contents
+                const allMeditations = document.querySelectorAll('.meditation-content');
+                allMeditations.forEach(meditation => {
+                    meditation.style.display = 'none';
                 });
-            });
 
-            if (exerciseSectionsElements.length > 0) {
-                showSectionElements(exerciseSectionsElements[0].id);
+                // Show the selected meditation content
+                const selectedMeditation = document.getElementById(meditationId);
+                if (selectedMeditation) {
+                    selectedMeditation.style.display = 'block';
+                    currentSteps[meditationId] = 0; // Reset step counter
+                    updateSteps(meditationId);
+                }
             }
+
+            function updateSteps(meditationId) {
+                const steps = document.querySelectorAll(`#${meditationId} .step`);
+                steps.forEach((step, index) => {
+                    if (index === currentSteps[meditationId]) {
+                        step.classList.add('active');
+                    } else {
+                        step.classList.remove('active');
+                    }
+                });
+
+                // Enable/disable Previous and Next buttons
+                const prevButton = document.querySelector(`#${meditationId} .navigation-buttons button:first-child`);
+                const nextButton = document.querySelector(`#${meditationId} .navigation-buttons button:last-child`);
+
+                prevButton.disabled = currentSteps[meditationId] === 0;
+                nextButton.disabled = currentSteps[meditationId] === steps.length - 1;
+            }
+
+            function nextStep(meditationId) {
+                const steps = document.querySelectorAll(`#${meditationId} .step`);
+                if (currentSteps[meditationId] < steps.length - 1) {
+                    currentSteps[meditationId]++;
+                    updateSteps(meditationId);
+                }
+            }
+
+            function previousStep(meditationId) {
+                if (currentSteps[meditationId] > 0) {
+                    currentSteps[meditationId]--;
+                    updateSteps(meditationId);
+                }
+            }
+
+            // Show the first meditation by default
+            showMeditation('sacred-garden');
         });
     </script>
 </body>
